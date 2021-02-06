@@ -1,0 +1,49 @@
+//buttons
+
+$primary: #d1a155;
+$info: #69a74a;
+$success: #74ab52;
+$warning: #f19b1a;
+$danger: #f44336;
+
+//main theme colors
+
+$lightShades: #f6f5f1;
+$lightAccent: #dc7b5c;
+$mainColor: #cb9f55;
+$darkAccent: #538a3c;
+$darkShades: #6ba64c;
+
+.btn-primary {
+    border: none !important;
+    background: $primary !important;
+    box-shadow: none;
+    &:hover {
+        background: lighten($primary, 5) !important;
+        box-shadow: none !important;
+    }
+    &:active {
+        background: darken($primary, 5) !important;
+        box-shadow: none !important;
+    }
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
+.btn-secondary {
+    border: none !important;
+    background: #999999 !important;
+    box-shadow: none;
+    &:hover {
+        background: lighten(#999999, 5) !important;
+        box-shadow: none !important;
+    }
+    &:active {
+        background: darken(#999999, 5) !important;
+        box-shadow: none !important;
+    }
+    &:focus {
+        box-shadow: none !important;
+    }
+}

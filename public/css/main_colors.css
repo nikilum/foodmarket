@@ -1,0 +1,40 @@
+.btn-primary {
+  border: none !important;
+  background: #d1a155 !important;
+  box-shadow: none;
+}
+
+.btn-primary:hover {
+  background: #d6ac69 !important;
+  box-shadow: none !important;
+}
+
+.btn-primary:active {
+  background: #cc9641 !important;
+  box-shadow: none !important;
+}
+
+.btn-primary:focus {
+  box-shadow: none !important;
+}
+
+.btn-secondary {
+  border: none !important;
+  background: #999999 !important;
+  box-shadow: none;
+}
+
+.btn-secondary:hover {
+  background: #a6a6a6 !important;
+  box-shadow: none !important;
+}
+
+.btn-secondary:active {
+  background: #8c8c8c !important;
+  box-shadow: none !important;
+}
+
+.btn-secondary:focus {
+  box-shadow: none !important;
+}
+
