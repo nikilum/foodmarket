@@ -4,13 +4,12 @@
     <title>Управление товарами</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/homepage.css">
-    <link rel="stylesheet" href="/css/main_colors.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" type="text/css"
           href="//cdn.datatables.net/v/bs4-4.1.1/dt-1.10.23/b-1.6.5/datatables.min.css"/>
+    <link rel="stylesheet" href="/css/homepage.css">
     <link rel="stylesheet" href="/css/panel.css">
     <link rel="stylesheet" href="/css/main_colors.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -41,9 +40,9 @@
                     </div>
                     <div class="modal-body">
                         <label for="productName">Название товара</label>
-                        <input type="text" class="form-control green-input-border"
-                               id="productName" aria-describedby="productNameHelp">
-                        <small id="productNameHelp" class="form-text text-muted"></small>
+                        <input type="text" class="form-control green-input-border" id="productName">
+                        <label for="productPrice">Цена товара</label>
+                        <input type="number" class="form-control green-input-border" id="productPrice">
                         <label for="descriptionEditor">Описание товара</label>
                         <textarea name="descriptionEditor"></textarea>
                         <label id="fileInputLabel" class="modal-label">Изображение товара</label>
@@ -80,6 +79,7 @@
                     <th></th>
                     <th>id</th>
                     <th>Название</th>
+                    <th>Цена</th>
                     <th>Фото</th>
                     <th>Ссылка</th>
                 </tr>

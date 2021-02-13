@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use PhpParser\Builder;
 
+/**
+ * фикс бага пхпшторма TODO потом убрать
+ * @property boolean $timestamps
+ */
+
 class User extends Authenticatable
 {
 
@@ -12,6 +17,7 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -23,7 +29,9 @@ class User extends Authenticatable
         'user_salt',
         'user_name',
         'user_address',
-        'user_phone'
+        'user_cart',
+        'user_phone',
+        'created_at'
     ];
 
     public static function getGroupByEmail($user_email) {

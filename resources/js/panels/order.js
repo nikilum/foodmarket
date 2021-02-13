@@ -9,7 +9,7 @@ function updateTable() {
             url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/Russian.json'
         },
         ajax: {
-            url: "manager/table",
+            url: "order/table",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },

@@ -44,7 +44,8 @@ class UserController extends Controller
             'user_name' => $userName,
             'user_salt' => $userSalt,
             'user_address' => $userAddress,
-            'user_phone' => $userPhone
+            'user_phone' => $userPhone,
+            'created_at' => now()
         ];
 
         // Создание и сохранение нового пользователя
@@ -55,13 +56,10 @@ class UserController extends Controller
         // Создание кода верификации
         $userId = User::where('user_email', $userEmail)->value('user_id');
         $verifyCode = strtolower(substr(str_shuffle($charsToRandomize), 0, 16));
-        $createdAt = now();
-        $updatedAt = now();
         $verifyInfo = [
             'user_id' => $userId,
             'verify_code' => $verifyCode,
-            'created_at' => $createdAt,
-            'updated_at' => $updatedAt
+            'created_at' => now(),
         ];
         $verify = new Verify($verifyInfo);
         $verify->save();
@@ -161,6 +159,7 @@ class UserController extends Controller
         Session::put('user_email', $userEmail);
         if($currentUser->value('user_email_verified_at') !== null)
             Session::put('verified', true);
+
         echo json_encode(['status' => 'ok']);
     }
 }

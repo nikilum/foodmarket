@@ -1,14 +1,6 @@
 $(document).ready(function () { // Загрузка основного функционала страницы
     CKEDITOR.replace('descriptionEditor')
     updateTable()
-
-    // Обновление названия загруженного файла в файл инпуте
-    $('#fileInput').on('change', function () {
-        let product_image = $('#fileInput')[0].files[0]
-        if (!product_image)
-            return false
-        $('#inputtedFileName').text(product_image.name)
-    })
 })
 
 function updateTable() {
@@ -56,10 +48,10 @@ function updateTable() {
                         "href='" + window.location.origin + "/products/"
                         + json.data[i]['product_id']
                         + "'></a>"
+                    json.data[i]['product_price'] = String(json.data[i]['product_price']) + " <b>₽</b>"
                 }
                 return json.data
             },
-
             // Обновление таблицы при успешном создании продукта
             complete: function () {
                 setTableHandlers()
@@ -84,6 +76,10 @@ function updateTable() {
             },
             {
                 data: "product_name",
+            },
+            {
+                data: "product_price",
+                width: "40px",
             },
             {
                 data: "product_image_name",
@@ -123,7 +119,7 @@ function setTableHandlers() {
             dataType: "json",
             contentType: "application/json",
             success: (msg) => {
-                showProductModal("editor", msg.product_name, msg.product_description, msg.product_image_name)
+                showProductModal("editor", msg.product_name, msg.product_price, msg.product_description, msg.product_image_name)
 
             },
             error: (msg) => {
@@ -155,12 +151,22 @@ function setTableHandlers() {
     })
 }
 
-function showProductModal(mode, product_name, product_description, product_image_name) {
+function showProductModal(mode, product_name, product_price, product_description, product_image_name) {
     handleProductSubmit(mode)
+    $('#fileInput').off()
+    // Обновление названия загруженного файла в файл инпуте
+    $('#fileInput').on('change', function () {
+        let product_image = $('#fileInput')[0].files[0]
+        if (!product_image)
+            return false
+        $('#inputtedFileName').text(product_image.name)
+    })
+
     if (mode === "creator") {
         $('#productEditorModalLabel').text('Создать товар')
         $('.submit-button').text('Создать')
         $('#productName').val('')
+        $('#productPrice').val('')
         CKEDITOR.instances.descriptionEditor.setData('')
         $('#inputtedFileName').text("Выберите файл")
         $('#productEditorModal').modal('show')
@@ -168,6 +174,7 @@ function showProductModal(mode, product_name, product_description, product_image
         $('#productEditorModalLabel').text('Изменить товар')
         $('.submit-button').text('Изменить')
         $('#productName').val(product_name)
+        $('#productPrice').val(product_price)
         CKEDITOR.instances.descriptionEditor.setData(product_description)
         $('#inputtedFileName').text(product_image_name)
         $('#productEditorModal').modal('show')
@@ -185,12 +192,13 @@ function handleProductSubmit(modal_type) {
         }
 
         formData.append('product_name', $('#productName').val())
+        formData.append('product_price', $('#productPrice').val())
         formData.append('product_description', CKEDITOR.instances.descriptionEditor.getData())
         formData.append('product_image', $('#fileInput')[0].files[0])
         if(modal_type === "editor")
             formData.append('product_id', clicked_product_id)
 
-        if (!formData.get('product_name') || !formData.get('product_description')) {
+        if (!formData.get('product_name') || !formData.get('product_description') || !formData.get('product_price')) {
             $('.error-text').text('Заполните все поля перед созданием.')
             return false
         }

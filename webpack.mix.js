@@ -16,4 +16,4 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/auth.scss', 'public/css')
     .sass('resources/sass/homepage.scss', 'public/css')
     .sass('resources/sass/main_colors.scss', 'public/css')
-    .sass('resources/sass/panel.scss', 'public/css');
+    .sass('resources/sass/panel.scss', 'public/css')

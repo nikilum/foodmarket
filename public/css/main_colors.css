@@ -38,3 +38,64 @@
   box-shadow: none !important;
 }
 
+.btn-info {
+  border: none !important;
+  background: #69a74a !important;
+  box-shadow: none;
+}
+
+.btn-info:hover {
+  background: #76b456 !important;
+  box-shadow: none !important;
+}
+
+.btn-info:active {
+  background: #5e9542 !important;
+  box-shadow: none !important;
+}
+
+.btn-info:focus {
+  box-shadow: none !important;
+}
+
+.btn-success {
+  border: none !important;
+  background: #538a3c !important;
+  box-shadow: none;
+}
+
+.btn-success:hover {
+  background: #5e9c44 !important;
+  box-shadow: none !important;
+}
+
+.btn-success:active {
+  background: #487834 !important;
+  box-shadow: none !important;
+}
+
+.btn-success:focus {
+  box-shadow: none !important;
+}
+
+.btn-white {
+  border: none !important;
+  background: #ffffff !important;
+  box-shadow: none;
+  color: black;
+}
+
+.btn-white:hover {
+  background: white !important;
+  box-shadow: none !important;
+}
+
+.btn-white:active {
+  background: #f2f2f2 !important;
+  box-shadow: none !important;
+}
+
+.btn-white:focus {
+  box-shadow: none !important;
+}
+

@@ -9,9 +9,11 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Главная</a>
             </li>
+            @if($user_email !== 'guest')
             <li class="nav-item active">
-                <a class="nav-link" href="order">Заказы</a>
+                <a class="nav-link" href="orders">История заказов</a>
             </li>
+            @endif
             @if($user_group === 'manager' || $user_group === 'global')
                 <li class="nav-item active">
                     <a class="nav-link" href="manager">Панель менеджера</a>

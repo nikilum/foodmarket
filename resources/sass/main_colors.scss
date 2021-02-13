@@ -8,7 +8,7 @@ $danger: #f44336;
 
 //main theme colors
 
-$lightShades: #f6f5f1;
+$lightShades: #ffffff;
 $lightAccent: #dc7b5c;
 $mainColor: #cb9f55;
 $darkAccent: #538a3c;
@@ -18,14 +18,17 @@ $darkShades: #6ba64c;
     border: none !important;
     background: $primary !important;
     box-shadow: none;
+
     &:hover {
         background: lighten($primary, 5) !important;
         box-shadow: none !important;
     }
+
     &:active {
         background: darken($primary, 5) !important;
         box-shadow: none !important;
     }
+
     &:focus {
         box-shadow: none !important;
     }
@@ -35,14 +38,78 @@ $darkShades: #6ba64c;
     border: none !important;
     background: #999999 !important;
     box-shadow: none;
+
     &:hover {
         background: lighten(#999999, 5) !important;
         box-shadow: none !important;
     }
+
     &:active {
         background: darken(#999999, 5) !important;
         box-shadow: none !important;
     }
+
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
+.btn-info {
+    border: none !important;
+    background: $info !important;
+    box-shadow: none;
+
+    &:hover {
+        background: lighten($info, 5) !important;
+        box-shadow: none !important;
+    }
+
+    &:active {
+        background: darken($info, 5) !important;
+        box-shadow: none !important;
+    }
+
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
+.btn-success {
+    border: none !important;
+    background: $darkAccent !important;
+    box-shadow: none;
+
+    &:hover {
+        background: lighten($darkAccent, 5) !important;
+        box-shadow: none !important;
+    }
+
+    &:active {
+        background: darken($darkAccent, 5) !important;
+        box-shadow: none !important;
+    }
+
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
+.btn-white {
+    border: none !important;
+    background: $lightShades !important;
+    box-shadow: none;
+    color: black;
+
+    &:hover {
+        background: lighten($lightShades, 5) !important;
+        box-shadow: none !important;
+    }
+
+    &:active {
+        background: darken($lightShades, 5) !important;
+        box-shadow: none !important;
+    }
+
     &:focus {
         box-shadow: none !important;
     }

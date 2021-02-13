@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PanelController;
 use Illuminate\Support\Facades\Auth;
@@ -19,12 +20,18 @@ use \Illuminate\Support\Facades\Session;
 |
 */
 
-Route::get('/', [Controller::class, 'index']);
+Route::get('/', [Controller::class, 'index']); // Загрузка основной страницы
+Route::post('/products', [Controller::class, 'loadProducts']); // Подгрузка продуктов для основной страницы
+Route::post('/cart/add', [CartController::class, 'addToCart']); // Добавление продукта в корзину
+Route::post('/cart', [CartController::class, 'loadCart']); // Загрузка корзины
+Route::patch('/cart', [CartController::class, 'updateCart']); // Обновление кол-ва товара в корзине
+Route::delete('/cart', [CartController::class, 'deleteCartItem']); // Удаление товара
+
+Route::get('/orders', [Controller::class, 'ordering']); // Загрузка панели истории заказов
 
 // Регистрация
 
 Route::get('/register', function () {
-
     return view('auth.register');
 });
 

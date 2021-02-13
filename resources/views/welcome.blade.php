@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/css/main_colors.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
+    <link rel="preconnect" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -25,158 +28,17 @@
     </div>
 
     <div class="cart" id="sidebar">
-        <div class="block-header light">
+        <div class="block-header light" id="sidebarHeader">
             <div class="block-header-text">
                 <span class="fas fa-shopping-cart dark"></span>
                 <span class="header-text dark">Корзина</span>
+                <button id="sendOrderButton" class="btn btn-white">Составить заказ</button>
             </div>
             <hr class="header-delimiter bg-dark">
         </div>
 
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="cart-item-img" alt="product">
-            <div class="vr"></div>
-            <div class="cart-item-text">
-                <div class="cart-item-header">
-                    Форель
-                </div>
-                <div class="cart-item-description">
-                    Lorem ipsum dolor sit amet
-                </div>
-            </div>
-        </div>
+
+
     </div>
 
 @endif
@@ -221,127 +83,8 @@
         </div>
         <hr class="header-delimiter bg-light">
     </div>
-    <div class="card-columns products-bar">
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
-        <div class="card product-card">
-            <img src="{{ url('resources/pics/example_1_to_1.jpg') }}" class="card-img-top product-img" alt="product">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <hr class="bg-light">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-            <a href="#" class="stretched-link"></a>
-        </div>
+    <div class="card-columns products-bar" id="products">
+
     </div>
 </div>
 

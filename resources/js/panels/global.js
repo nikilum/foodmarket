@@ -2,13 +2,6 @@ $(document).ready(function () {
     updateTable()
 
     $('#submitButton').on('click', function () {
-        console.log({
-            user_id: clicked_user_id,
-            user_email: $('#userEmail').val(),
-            user_group: $('#userGroup option:selected').val(),
-            user_address: $('#userAddress').val(),
-            user_phone: $('#userPhone').val()
-        })
         $.ajax({
             url: "global",
             headers: {
@@ -24,15 +17,13 @@ $(document).ready(function () {
                 user_address: $('#userAddress').val(),
                 user_phone: $('#userPhone').val()
             }),
-            success: (msg) => {
-                console.log(msg)
+            success: () => {
                 $('#modalError').text('')
                 $('#userEditorModal').modal('hide')
                 $('#admins').DataTable().clear().destroy()
                 updateTable()
             },
-            error: (msg) => {
-                console.log(msg)
+            error: () => {
                 $('#modalError').text('Неизвестная ошибка. Попробуйте позже.')
             }
         })
@@ -73,8 +64,6 @@ function updateTable() {
                 }
                 return json.data
             },
-            error: (msg) => {
-                console.log(msg)},
             // Обновление таблицы при успешном создании продукта
             complete: function () {
                 setTableHandlers()
@@ -134,8 +123,7 @@ function setTableHandlers() {
                 $('#userPhone').val(msg.user_phone)
                 $('#userEditorModal').modal('show')
             },
-            error: (msg) => {
-                console.log(msg)
+            error: () => {
                 alert("Ошибка при загрузке данных с сервера")
             }
         })

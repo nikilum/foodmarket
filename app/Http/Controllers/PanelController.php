@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,8 +25,11 @@ class PanelController extends Controller
 
     public function createProduct(Request $request)
     {
-        if (($request->has(['product_name', 'product_description'])
+        if (($request->has(['product_name', 'product_description', 'product_price'])
                 && $request->hasFile('product_image')) === false)
+            return false;
+
+        if(!filter_var($request->input('product_price'), FILTER_VALIDATE_INT))
             return false;
 
         if (($request->file('product_image')->extension() === 'jpg'
@@ -42,8 +46,10 @@ class PanelController extends Controller
         $imageName = preg_split('/\//', $productImagePath);
         $productData = array(
             'product_name' => $productName,
+            'product_price' => $request->input('product_price'),
             'product_description' => $productDescription,
-            'product_image_name' => end($imageName)
+            'product_image_name' => end($imageName),
+            'created_at' => now()
         );
 
         $product = new Product($productData);
@@ -56,6 +62,7 @@ class PanelController extends Controller
     {
         $productId = $request->input('product_id');
         $productName = $request->input('product_name');
+        $productPrice = $request->input('product_price');
         $productDescription = $request->input('product_description');
         if($request->file('product_image') !== null) {
             $productFile = $request->file('product_image');
@@ -70,6 +77,7 @@ class PanelController extends Controller
 
         $product = Product::where('product_id', $productId)->first();
         $product->product_name = $productName;
+        $product->product_price = $productPrice;
         $product->product_description = $productDescription;
         if($request->file('product_image') !== null) {
             $oldImageName = $product->product_image_name;
@@ -125,12 +133,17 @@ class PanelController extends Controller
 
     public function loadManagerTable()
     {
+        $orders = Order::select('order_id', 'user_id', 'order_phone', 'order_address',
+            'order_goods', 'order_additional', 'order_status', 'created_at');
 
+        echo json_encode(["data" => $orders->get()]);
     }
 
     public function loadAdminTable()
     {
-        echo json_encode(["data" => Product::select('product_id', 'product_name', 'product_image_name')->get()]);
+        echo json_encode([
+            "data" => Product::select('product_id', 'product_name', 'product_price', 'product_image_name')->get()
+        ]);
     }
 
     public function loadGlobalTable()

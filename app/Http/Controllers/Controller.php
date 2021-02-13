@@ -37,9 +37,15 @@ class Controller extends BaseController
     {
         /*
          * Создание нового заказа/просмотр уже созданных заказов
-         * Ограничение запросов на создание новых заказов по умолчанию - 5 в час
+         * Ограничение запросов на создание новых заказов по умолчанию - 3 в час
          * На изменение заказа даётся не более часа
          **/
+
+        $userInfo = $this->getEmailAndGroup();
+        return view('panels.orders', [
+            'user_email' => $userInfo['user_email'],
+            'user_group' => $userInfo['user_group']
+        ]);
     }
 
     // Управление панелями администраторов
@@ -109,6 +115,7 @@ class Controller extends BaseController
         echo json_encode([
             'product_name' => $product->product_name,
             'product_description' => $product->product_description,
+            'product_price' => $product->product_price,
             'product_image_name' => $product->product_image_name
         ]);
     }
@@ -119,6 +126,15 @@ class Controller extends BaseController
             'user_group' => $user->user_group,
             'user_address' => $user->user_address,
             'user_phone' => $user->user_phone
+        ]);
+    }
+
+    public function loadProducts() {
+        echo json_encode([
+            "user_email" => Session::exists('user_email') ? Session::get('user_email') : "guest",
+            "data" => Product::select(
+                'product_name', 'product_description', 'product_price', 'product_image_name', 'product_id'
+            )->get()
         ]);
     }
 }
