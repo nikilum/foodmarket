@@ -1,31 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ed31a406-ac54-46f2-8681-8470533e4bf6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/panels/order.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/panels/orders.blade.php" afterDir="false" />
+    <list default="true" id="ed31a406-ac54-46f2-8681-8470533e4bf6" name="Default Changelist" comment="cart system created and stabilized">
+      <change afterPath="$PROJECT_DIR$/resources/js/settings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/user_settings.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PanelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PanelController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/homepage.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/homepage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/main_colors.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/main_colors.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/panel.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/panel.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/homepage.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/homepage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/panels/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/panels/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/panels/global.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/panels/global.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/panels/manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/panels/manager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/homepage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/homepage.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/main_colors.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/main_colors.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/panels/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/panels/admin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/panels/manager.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/panels/manager.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/panels/global.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/panels/global.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/panels/panel_header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/panels/panel_header.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,6 +158,9 @@
       <path value="$PROJECT_DIR$/vendor/filp/whoops" />
     </include_path>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
   <component name="ProjectId" id="1mBP8gdWHbrFiaLRMhYriDttrFt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -226,8 +221,16 @@
       <workItem from="1610334539217" duration="34780000" />
       <workItem from="1610536185728" duration="157233000" />
       <workItem from="1611744262172" duration="153688000" />
-      <workItem from="1612699239521" duration="105582000" />
+      <workItem from="1612699239521" duration="118860000" />
     </task>
+    <task id="LOCAL-00001" summary="cart system created and stabilized">
+      <created>1613245577942</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1613245577957</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,6 +246,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="cart system created and stabilized" />
+    <option name="LAST_COMMIT_MESSAGE" value="cart system created and stabilized" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

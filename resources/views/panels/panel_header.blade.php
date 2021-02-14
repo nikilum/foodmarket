@@ -9,11 +9,6 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Главная</a>
             </li>
-            @if($user_email !== 'guest')
-            <li class="nav-item active">
-                <a class="nav-link" href="orders">История заказов</a>
-            </li>
-            @endif
             @if($user_group === 'manager' || $user_group === 'global')
                 <li class="nav-item active">
                     <a class="nav-link" href="manager">Панель менеджера</a>
@@ -44,8 +39,8 @@
                         {{ $user_email }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Настройки профиля</a>
-                        <a class="dropdown-item" href="#">История покупок</a>
+                        <a class="dropdown-item" href="settings">Настройки профиля</a>
+                        <a class="dropdown-item" href="orders">История покупок</a>
                     </div>
                 </li>
                 <li class="nav-item active">

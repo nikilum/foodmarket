@@ -3,10 +3,9 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PanelController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Session;
 
 /*
@@ -28,6 +27,10 @@ Route::patch('/cart', [CartController::class, 'updateCart']); // Обновле�
 Route::delete('/cart', [CartController::class, 'deleteCartItem']); // Удаление товара
 
 Route::get('/orders', [Controller::class, 'ordering']); // Загрузка панели истории заказов
+Route::get('/settings', [SettingsController::class, 'settings']); // Загрузка панели настроек
+Route::post('/user', [SettingsController::class, 'loadUserData']); // Загрузка данных к панели настроек
+Route::patch('/user', [SettingsController::class, 'updateUserData']); // Обновление данных о пользователе
+Route::patch('/user/password', [SettingsController::class, 'updatePassword']); // Обновление данных о пароле
 
 // Регистрация
 
@@ -82,5 +85,6 @@ Route::post('/global/table', [PanelController::class, 'loadGlobalTable']);
 Route::get('/product/{id}', [Controller::class, 'loadProductPage'])->whereNumber('id');
 Route::post('/product/{id}', [Controller::class, 'getProductById'])->whereNumber('id');
 
-Route::get('/user/{id}', [Controller::class, 'loadUserPage'])->whereNumber('id');
+Route::get('/user/{id}', [Controller::class, 'loadUserPage'])->whereNumber('id'); //TODO удалить
 Route::post('/user/{id}', [Controller::class, 'getUserById'])->whereNumber('id');
+Route::post('/user', [Controller::class, 'getUserData']);

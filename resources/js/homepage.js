@@ -1,8 +1,12 @@
 $(document).ready(function () {
-    update_request = false;
+    update_request = false
     takeProducts()
     takeCart()
-    setSidebarHandler()
+    setConstantHandlers()
+    $('#userPhone').mask('+9(999)999-99-99') //Установка маски для ввода телефона
+    $('#userPhone').on('click', function () { //Установка каретки в начало маски ввода номера
+        $('#userPhone').focus()
+    })
 })
 
 function takeProducts() {
@@ -123,12 +127,12 @@ function loadCart(msg) {
     }
 }
 
-function setSidebarHandler() {
+function setConstantHandlers() {
     isCartOpened = false
     $('#openCartBtn').on('click', function () {
         if (isCartOpened === false) {
             $('#sidebar').animate({width: '25rem'})
-            $('.foreground').css('z-index', '100000').animate({opacity: 100}, 400, 'linear', () => {
+            $('.foreground').css('z-index', '999').animate({opacity: 100}, 400, 'linear', () => {
                 $('body').css('overflow', 'hidden')
             })
             setTimeout(() => {
@@ -145,6 +149,16 @@ function setSidebarHandler() {
                 $('.shopping-cart-open-btn').css('right', '2%').css('background', '#cb9f55')
             }, 100)
             isCartOpened = false
+        }
+    })
+
+    $('#submitButton').on('click', function () {
+        let userName = $('#userName').val()
+        let userAddress = $('#userAddress').val()
+        let userPhone = $('#userPhone').val()
+        if(!userName || !userPhone || !userAddress) {
+            $('#modalError').text('Заполните все поля перед отправкой заказа')
+            return false
         }
     })
 }
@@ -236,7 +250,7 @@ function setCartHandlers() {
             .parent()
             .children('.cart-item-quantity-container')
             .children('.cart-item-quantity')
-            .attr('data-id');
+            .attr('data-id')
         $.ajax({
             url: 'cart',
             method: 'DELETE',
@@ -250,6 +264,24 @@ function setCartHandlers() {
                 $(this).parent().remove()
             }
         })
+    })
+    $("#sendOrderButton").off()
+    $("#sendOrderButton").on('click', function () {
+        $.ajax({
+            url: "user",
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: "json",
+            contentType: "application/json",
+            success: (msg) => {
+                $('#userPhone').val(msg.user_phone)
+                $('#userAddress').val(msg.user_address)
+                $('#userName').val(msg.user_name)
+            }
+        })
+        $('#orderModal').modal('show')
     })
 }
 

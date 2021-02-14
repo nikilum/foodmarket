@@ -142,7 +142,7 @@ hr.header-delimiter {
     justify-content: center;
     border-radius: 20px;
     position: fixed;
-    z-index: 9999999;
+    z-index: 1000;
     transition: 0.5s ease-in-out;
 
     &:hover {
@@ -169,7 +169,7 @@ hr.header-delimiter {
 .go-up-btn {
     bottom: 2%;
     left: 2%;
-    z-index: 1000 !important;
+    z-index: 998 !important;
 
     .fa-arrow-up {
         color: $lightShades;
@@ -197,7 +197,7 @@ hr.header-delimiter {
 
 .cart {
     overflow-x: hidden;
-    z-index: 100000;
+    z-index: 999;
     position: fixed;
     right: 0;
     height: 100%;
@@ -257,7 +257,7 @@ hr.header-delimiter {
 
 .add-to-cart-btn {
     transition: 0.1s ease-in-out;
-    z-index: 999;
+    z-index: 998;
     position: absolute;
     top: 5%;
     left: 5%;
@@ -298,7 +298,7 @@ hr.header-delimiter {
 
 .product-quantity {
     transition: 0.1s ease-in-out;
-    z-index: 999;
+    z-index: 998;
     position: absolute;
     bottom: 5%;
     left: 5%;
@@ -411,7 +411,48 @@ hr.header-delimiter {
         outline: none;
     }
     &:hover {
-        background: lighten(#efefef);
+        background: lighten(#efefef, 5);
         box-shadow: none;
+    }
+}
+
+.user-editor-container {
+    display: flex;
+    justify-content: center;
+
+    input {
+        &:focus, &:active {
+            outline: none;
+            border-color: $darkAccent;
+            box-shadow: 0 0 0 .2rem rgba(83, 138, 60, .25);
+        }
+    }
+}
+
+.user-editor {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-editor-footer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-carousel-pic {
+    width: 1600px;
+    height: 820px;
+}
+
+#orderModal {
+    input {
+        &:focus, &:active {
+            outline: none;
+            border-color: $darkAccent;
+            box-shadow: 0 0 0 .2rem rgba(83, 138, 60, .25);
+        }
     }
 }

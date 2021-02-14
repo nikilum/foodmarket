@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Homepage</title>
+    <title>Foodmarket</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/homepage.css">
@@ -36,9 +36,6 @@
             </div>
             <hr class="header-delimiter bg-dark">
         </div>
-
-
-
     </div>
 
 @endif
@@ -53,15 +50,15 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100 header-carousel-pic" src="{{ url('resources/pics/example_16_to_6.jpg') }}"
+            <img class="d-block w-100 header-carousel-pic" src="{{ url('resources/pics/carousel_1.jpg') }}"
                  alt="First slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100 header-carousel-pic" src="{{ url('resources/pics/example_16_to_6.jpg') }}"
+            <img class="d-block w-100 header-carousel-pic" src="{{ url('resources/pics/carousel_2.jpg') }}"
                  alt="Second slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100 header-carousel-pic" src="{{ url('resources/pics/example_16_to_6.jpg') }}"
+            <img class="d-block w-100 header-carousel-pic" src="{{ url('resources/pics/carousel_3.jpg') }}"
                  alt="Third slide">
         </div>
     </div>
@@ -88,6 +85,38 @@
     </div>
 </div>
 
+<div class="modal fade" id="orderModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel">Оформление заказа</h5>
+            </div>
+            <div class="modal-body">
+
+                <label for="userName" class="modal-label">Ваше имя</label>
+                <input type="text" class="form-control green-input-border"
+                       id="userName">
+
+                <label for="userAddress" class="modal-label">Ваш адрес</label>
+                <input type="text" class="form-control green-input-border"
+                       id="userAddress">
+
+                <label for="userPhone" class="modal-label">Ваш номер телефона</label>
+                <input type="text" class="form-control green-input-border"
+                       id="userPhone">
+            </div>
+            <div class="modal-footer justify-content-between">
+                <small class="error-text" id="modalError"></small>
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="hideModal">Отмена
+                    </button>
+                    <button type="button" class="btn btn-primary submit-button" id="submitButton">Оформить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Scripts -->
 
@@ -102,6 +131,7 @@
 <script src="//cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
         integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
         crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
 <script src="{{ url('resources/js/homepage.js') }}"></script>
 </body>
 </html>

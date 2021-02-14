@@ -82,7 +82,7 @@
 
 .btn-white {
   border: none !important;
-  background: #ffffff !important;
+  background: #f6f5f1 !important;
   box-shadow: none;
   color: black;
 }
@@ -93,7 +93,7 @@
 }
 
 .btn-white:active {
-  background: #f2f2f2 !important;
+  background: #eceae1 !important;
   box-shadow: none !important;
 }
 

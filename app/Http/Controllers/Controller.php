@@ -48,6 +48,21 @@ class Controller extends BaseController
         ]);
     }
 
+    public function settings()
+    {
+        /*
+         * Создание нового заказа/просмотр уже созданных заказов
+         * Ограничение запросов на создание новых заказов по умолчанию - 3 в час
+         * На изменение заказа даётся не более часа
+         **/
+
+        $userInfo = $this->getEmailAndGroup();
+        return view('user_settings', [
+            'user_email' => $userInfo['user_email'],
+            'user_group' => $userInfo['user_group']
+        ]);
+    }
+
     // Управление панелями администраторов
 
     public function admin() //TODO перенести панели в отдельный контроллер, в конструкт добавить $userInfo
@@ -136,5 +151,14 @@ class Controller extends BaseController
                 'product_name', 'product_description', 'product_price', 'product_image_name', 'product_id'
             )->get()
         ]);
+    }
+
+    public function getUserData() {
+        $user = User::where('user_email', Session::get('user_email'))->first();
+        echo json_encode([
+            'user_name' => $user->user_name,
+            'user_address' => $user->user_address,
+            'user_phone' => $user->user_phone
+            ]);
     }
 }
