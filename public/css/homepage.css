@@ -355,7 +355,7 @@ hr.header-delimiter {
 
 .add-to-cart-btn {
   transition: 0.1s ease-in-out;
-  z-index: 998;
+  z-index: 997;
   position: absolute;
   top: 5%;
   left: 5%;
@@ -396,7 +396,7 @@ hr.header-delimiter {
 
 .product-quantity {
   transition: 0.1s ease-in-out;
-  z-index: 998;
+  z-index: 997;
   position: absolute;
   bottom: 5%;
   left: 5%;
@@ -552,9 +552,36 @@ hr.header-delimiter {
 }
 
 #orderModal input:focus,
-#orderModal input:active {
+#orderModal input:active,
+#orderModal textarea:focus,
+#orderModal textarea:active {
   outline: none;
   border-color: #538a3c;
   box-shadow: 0 0 0 0.2rem rgba(83, 138, 60, 0.25);
+}
+
+.balance-block {
+  width: 50%;
+  margin: 0 auto 10px;
+}
+
+.centered-block {
+  margin: 0 auto;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.product-name {
+  font-family: "Oswald", sans-serif;
+  font-size: xxx-large;
+  margin-top: 0;
+  margin-bottom: -1.5rem;
+}
+
+.photo-container img {
+  width: 30vw !important;
+  height: 30vw !important;
 }
 

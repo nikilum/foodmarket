@@ -23,12 +23,12 @@
         <div class="form-group">
             <label for="inputCode">Код подтверждения был отправлен вам на почту</label>
             <input id="inputCode" type="text"
-                   class="form-control" placeholder="A1B2-C3D4-E5F6-G7H8" aria-describedby="codeError">
+                   class="form-control" placeholder="ieglmxexkmshvoy8" aria-describedby="codeError">
             <small id="codeError" class="error-message unexpected-error-box"></small>
         </div>
         <button class="btn btn-success" id="mailConfirmButton">Подтвердить</button>
     </div>
-    <a class="bottom-ref" href="{{url("")}}">Не пришёл код? Вы можете отправить письмо ещё раз</a>
+    <a class="bottom-ref">Не пришёл код? Вы можете отправить письмо ещё раз</a>
 </div>
 
 <!-- Scripts -->
@@ -41,6 +41,6 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
-<script src="{{ url('resources/js/register.js') }}"></script>
+<script src="{{ url('resources/js/verify.js') }}"></script>
 </body>
 </html>

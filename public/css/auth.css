@@ -69,14 +69,15 @@
 
 .bottom-ref {
   margin-top: 10px;
-  color: green;
+  color: green !important;
+  cursor: pointer !important;
 }
 
 .bottom-ref:hover,
 .bottom-ref:active {
   margin-top: 10px;
-  color: green;
-  text-decoration: underline;
+  color: green !important;
+  text-decoration: underline !important;
 }
 
 .error-message {

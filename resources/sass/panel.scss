@@ -2,6 +2,7 @@
 
 .datatable {
     width: 80%;
+    margin: 0 auto;
 }
 
 .centered-table {
@@ -135,5 +136,89 @@
     }
     &:active {
         color: $warning !important;
+    }
+}
+
+.details-block {
+    background: $lightShades;
+    border-radius: .25rem;
+    border: 1px solid lightgray;
+    overflow-y: scroll;
+    padding: 20px;
+    height: 10rem;
+}
+
+.addition-text {
+    word-break: break-word;
+}
+
+.product-name-manager {
+    width: 20.5rem;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+}
+
+.product-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.details-text {
+
+}
+
+.product-details {
+    hr:last-child {
+        display: none;
+    }
+}
+
+.total-price {
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;
+    background: $lightShades;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 1rem;
+    border: 1px solid lightgray;
+}
+
+.order-status-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-status-btn {
+    margin-top: 3px;
+    margin-left: 10px;
+    color: $darkShades;
+    cursor: pointer;
+    &:hover {
+        color: lighten($darkShades, 5);
+    }
+    &:active {
+        color: darken($darkShades, 5);
+    }
+}
+
+.select-status {
+    appearance: inherit;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+}
+
+.order-status-text {
+    color: $darkShades;
+    cursor: pointer;
+    font-weight: bolder;
+    &:hover {
+        color: lighten($darkShades, 5);
+    }
+    &:active {
+        color: darken($darkShades, 5);
     }
 }

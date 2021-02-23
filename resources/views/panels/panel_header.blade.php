@@ -9,6 +9,11 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Главная</a>
             </li>
+            @if($user_email !== 'guest')
+                <li class="nav-item active">
+                    <a class="nav-link" href="orders">Мои заказы</a>
+                </li>
+            @endif
             @if($user_group === 'manager' || $user_group === 'global')
                 <li class="nav-item active">
                     <a class="nav-link" href="manager">Панель менеджера</a>
@@ -31,7 +36,7 @@
         @if($user_email !== 'guest')
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link nav-light-link" href="refill">0,00 <b>₽</b></a>
+                    <a class="nav-link nav-light-link" id="balance" href="refill">0,00 <b>₽</b></a>
                 </li>
                 <li class="nav-item active dropdown dropleft">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -40,11 +45,8 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="settings">Настройки профиля</a>
-                        <a class="dropdown-item" href="orders">История покупок</a>
+                        <a class="dropdown-item" href="logout">Выйти</a>
                     </div>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="logout">Выйти</a>
                 </li>
             </ul>
         @else

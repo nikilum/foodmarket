@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    if(typeof getBalance === "function")
+        getBalance()
     update_request = false
     takeProducts()
     takeCart()
@@ -12,10 +14,7 @@ $(document).ready(function () {
 function takeProducts() {
     $.ajax({
         url: "products",
-        method: "POST",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
+        method: "GET",
         dataType: "json",
         contentType: "application/json",
         success: (msg) => {
@@ -25,25 +24,8 @@ function takeProducts() {
     })
 }
 
-function takeCart() {
-    $('#sidebar').children('.cart-item').remove()
-    $.ajax({
-        url: "cart",
-        method: "POST",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        dataType: "json",
-        contentType: "application/json",
-        success: (msg) => {
-            loadCart(msg)
-            setCartHandlers()
-        }
-    })
-}
-
 function loadProducts(msg) {
-    if (msg.user_email !== 'guest') {
+    if (msg.user_verify === true) {
         for (let i = 0; i < msg.data.length; i++) {
             let product = msg.data[i]
             let productCard = '<div class="card product-card">\n' +
@@ -95,6 +77,20 @@ function loadProducts(msg) {
     }
 }
 
+function takeCart() {
+    $('#sidebar').children('.cart-item').remove()
+    $.ajax({
+        url: "cart_products",
+        method: "GET",
+        dataType: "json",
+        contentType: "application/json",
+        success: (msg) => {
+            loadCart(msg)
+            setCartHandlers()
+        }
+    })
+}
+
 function loadCart(msg) {
     if (msg.user_email === "guest")
         return false
@@ -125,12 +121,14 @@ function loadCart(msg) {
             '        </div>'
         $('#sidebar').append(visualisedCartItem)
     }
+    checkForProducts()
 }
 
 function setConstantHandlers() {
     isCartOpened = false
     $('#openCartBtn').on('click', function () {
         if (isCartOpened === false) {
+            takeCart()
             $('#sidebar').animate({width: '25rem'})
             $('.foreground').css('z-index', '999').animate({opacity: 100}, 400, 'linear', () => {
                 $('body').css('overflow', 'hidden')
@@ -156,10 +154,46 @@ function setConstantHandlers() {
         let userName = $('#userName').val()
         let userAddress = $('#userAddress').val()
         let userPhone = $('#userPhone').val()
+        let userAdditional = $('#userAdditional').val()
+        if(userAdditional.length > 4000) {
+            $('#modalError').text('Доп. информация слишком длинная')
+            return false
+        }
         if(!userName || !userPhone || !userAddress) {
             $('#modalError').text('Заполните все поля перед отправкой заказа')
             return false
         }
+        $('#modalError').text('')
+        $.ajax({
+            url: "uorders",
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({
+                user_name: userName,
+                user_address: userAddress,
+                user_phone: userPhone,
+                user_additional: userAdditional
+            }),
+            success: (msg) => {
+                console.log(msg)
+                if(msg.status === "too much orders") {
+                    $('#modalError').text('У вас слишком много активных заказов')
+                    return false
+                }
+                if(msg.status === "not enough money") {
+                    $('#modalError').text('У вас недостаточно денег')
+                    return false
+                }
+                $('#orderModal').modal('hide')
+                takeCart()
+                getBalance()
+            }
+        })
+
     })
 }
 
@@ -170,7 +204,7 @@ function setProductHandlers() {
         if ($(this).val() > 99)
             $(this).val(99)
     })
-    $('.product-quantity').on('keyup', function () {
+    $('.product-quantity').on('keyup', function () { //TODO пофиксить
         if ($(this).val() < 1)
             $(this).val(0)
         if ($(this).val() > 99)
@@ -180,7 +214,7 @@ function setProductHandlers() {
         let product_id = $(this).attr('data-id')
         let product_quantity = $(this).parent().children('.product-quantity').val()
         $.ajax({
-            url: 'cart/add',
+            url: 'cart_products',
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -252,27 +286,24 @@ function setCartHandlers() {
             .children('.cart-item-quantity')
             .attr('data-id')
         $.ajax({
-            url: 'cart',
+            url: 'cart_products/' + product_id,
             method: 'DELETE',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             dataType: "json",
             contentType: "application/json",
-            data: JSON.stringify({product_id: product_id}),
             success: () => {
                 $(this).parent().remove()
+                checkForProducts()
             }
         })
     })
     $("#sendOrderButton").off()
     $("#sendOrderButton").on('click', function () {
         $.ajax({
-            url: "user",
-            method: "POST",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
+            url: "usettings",
+            method: "GET",
             dataType: "json",
             contentType: "application/json",
             success: (msg) => {
@@ -305,7 +336,7 @@ function cartUpdate() {
             cart_data['product_' + product_id] = {product_id: product_id, product_quantity: product_quantity}
         })
         $.ajax({
-            url: 'cart',
+            url: 'cart_products/0',
             method: 'PATCH',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -315,4 +346,11 @@ function cartUpdate() {
             data: JSON.stringify({cart_data: cart_data})
         })
     }, 2000)
+}
+
+function checkForProducts() {
+    if($('#sidebar').children('.cart-item').length === 0)
+        $('#sendOrderButton').css('display', 'none')
+    else
+        $('#sendOrderButton').css('display', 'inline-block')
 }

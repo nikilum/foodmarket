@@ -1,4 +1,5 @@
 $(document).ready(function () { // Загрузка основного функционала страницы
+    getBalance()
     CKEDITOR.replace('descriptionEditor')
     updateTable()
 })
@@ -23,11 +24,8 @@ function updateTable() {
             url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/Russian.json'
         },
         ajax: {
-            url: "admin/table",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            method: "POST",
+            url: "aproducts",
+            method: "GET",
             dataType: "json",
             contentType: "application/json",
             // Обработка json файла и создание соответствующей таблицы
@@ -109,35 +107,32 @@ function setTableHandlers() {
 
         clicked_product_id = $(this).attr('data-id') //Сохранение того, на продукт с каким id кликнул пользователь
 
-        // Запрос данных о товаре с сервера
+        // Запрос данных о товаре
         $.ajax({
-            url: "product/" + $(this).attr('data-id'),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            method: "POST",
+            url: "aproducts/" + $(this).attr('data-id') + '/edit',
+            method: "GET",
             dataType: "json",
             contentType: "application/json",
             success: (msg) => {
-                showProductModal("editor", msg.product_name, msg.product_price, msg.product_description, msg.product_image_name)
-
+                showProductModal(
+                    "editor", msg.product_name,
+                    msg.product_price, msg.product_description, msg.product_image_name)
             },
             error: (msg) => {
-                alert("Ошибка при загрузке данных с сервера")
+                console.log(msg)
             }
         })
     })
 
     $('.row-delete-href').on('click', function () {
         $.ajax({
-            url: "admin",
+            url: "aproducts/" + $(this).attr('data-id'),
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             method: "DELETE",
             dataType: "json",
             contentType: "application/json",
-            data: JSON.stringify({'product_id': $(this).attr('data-id')}),
             success: () => {
                 $('#products').DataTable().clear().destroy() //TODO пофиксить удаление картинки товара при удалении товара
                 updateTable()
@@ -186,31 +181,34 @@ function handleProductSubmit(modal_type) {
     $('#submitProductButton').on('click', function () {
         let allowedExtension = ['image/jpeg', 'image/jpg', 'image/png', 'image/bmp']
         let formData = new FormData()
-        let file_send_url = "admin"
-        if(modal_type === "editor") {
-            file_send_url = "admin/update"
+        if (modal_type === "editor") {
+
         }
 
         formData.append('product_name', $('#productName').val())
         formData.append('product_price', $('#productPrice').val())
         formData.append('product_description', CKEDITOR.instances.descriptionEditor.getData())
         formData.append('product_image', $('#fileInput')[0].files[0])
-        if(modal_type === "editor")
+        if (modal_type === "editor") {
             formData.append('product_id', clicked_product_id)
+            formData.append('store_type', 'edit')
+        }
+
 
         if (!formData.get('product_name') || !formData.get('product_description') || !formData.get('product_price')) {
             $('.error-text').text('Заполните все поля перед созданием.')
             return false
         }
 
-        if(modal_type === "creator") {
-            if(!formData.get('product_image')) {
+        if (modal_type === "creator") {
+            if (!formData.get('product_image')) {
                 $('.error-text').text('Заполните все поля перед созданием.')
                 return false
             }
+            formData.append('store_type', 'create')
         }
 
-        if(formData.get('product_image') !== "undefined") {
+        if (formData.get('product_image') !== "undefined") {
             if (formData.get('product_image').type.indexOf(allowedExtension) !== -1) {
                 $('.error-text').text('Доступные форматы файла: jpg, jpeg, png, bmp.')
                 return false
@@ -220,7 +218,7 @@ function handleProductSubmit(modal_type) {
         $('.error-text').text('')
 
         $.ajax({
-            url: file_send_url,
+            url: 'aproducts',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },

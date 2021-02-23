@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class Authorized
+class Verified
 {
     /**
      * Handle an incoming request.
@@ -18,13 +18,13 @@ class Authorized
     public function handle(Request $request, Closure $next)
     {
         if ($request->isXmlHttpRequest()) {
-            if (Session::exists('user_email') === false)
+            if (Session::exists('verified') === false) {
                 abort(403);
-            else
+            } else
                 return $next($request);
         } else {
-            if (Session::exists('user_email') === false)
-                return redirect('login');
+            if (Session::exists('verified') === false)
+                return redirect('verify');
             else
                 return $next($request);
         }

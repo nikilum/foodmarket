@@ -95,6 +95,7 @@
         integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
         crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+<script src="{{ url('resources/js/get_balance.js') }}"></script>
 <script src="{{ url('resources/js/settings.js') }}"></script>
 </body>
 </html>

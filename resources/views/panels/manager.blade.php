@@ -33,10 +33,10 @@
                 <thead>
                 <tr>
                     <th>id</th>
+                    <th>id заказчика</th>
                     <th>Дата</th>
                     <th>Статус</th>
-                    <th>Информация о заказе</th>
-                    <th>Пользователь</th>
+                    <th>Подробнее</th>
                     <th>Адрес</th>
                     <th>Телефон</th>
                 </tr>
@@ -46,7 +46,34 @@
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
 
+<div class="modal fade" id="detailModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel">Информация о заказе</h5>
+            </div>
+            <div class="modal-body">
+                <div class="total-price" id="totalPrice"></div>
+                <label for="userName" class="modal-label">Товары</label>
+                <div class="bg-dark details-block product-details" id="productList">
+                </div>
+
+                <label for="userAddress" class="modal-label">Доп. информация о заказе</label>
+                <div class="bg-dark details-block addition-text" id="additionalText">
+
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <small class="error-text" id="modalError"></small>
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="hideModal">Закрыть</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -69,6 +96,7 @@
 <script type="text/javascript"
         src="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.23/b-1.6.5/datatables.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.15.1/basic/ckeditor.js"></script>
+<script src="{{ url('resources/js/get_balance.js') }}"></script>
 <script src="{{ url('resources/js/panels/manager.js') }}"></script>
 </body>
 </html>

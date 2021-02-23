@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\IsAdminOrGlobal;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -61,6 +62,12 @@ class Kernel extends HttpKernel
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'verified' => \App\Http\Middleware\Verified::class,
+        'manager' => \App\Http\Middleware\IsManagerOrGlobal::class,
+        'admin' => \App\Http\Middleware\IsAdminOrGlobal::class,
+        'global' => \App\Http\Middleware\IsGlobal::class,
+        'authorized' => \App\Http\Middleware\Authorized::class,
+        'notLoggedIn' => \App\Http\Middleware\NotLoggedIn::class,
+        'notVerified' => \App\Http\Middleware\NotVerified::class
     ];
 }

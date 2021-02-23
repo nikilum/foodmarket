@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    getBalance()
     takeUserData()
     $('#inputPhone').mask('+9(999)999-99-99') //Установка маски для ввода телефона
     $('#inputPhone').on('click', function () { //Установка каретки в начало маски ввода номера
@@ -8,11 +9,8 @@ $(document).ready(function () {
 
 function takeUserData() {
     $.ajax({
-        url: "user",
-        method: "POST",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
+        url: "usettings",
+        method: "GET",
         dataType: "json",
         contentType: "application/json",
         success: (msg) => {
@@ -31,8 +29,9 @@ function setButtonHandlers() {
         userData['user_name'] = $('#inputName').val() + " " + $('#inputSurname').val()
         userData['user_address'] = $('#inputAddress').val()
         userData['user_phone'] = $('#inputPhone').val()
+        userData['edit_type'] = "data"
         $.ajax({
-            url: "user",
+            url: "usettings/0",
             method: "PATCH",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -40,10 +39,12 @@ function setButtonHandlers() {
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(userData),
-            success: () => {
+            success: (msg) => {
+                console.log(msg)
                 $('#dataError').text('Данные успешно изменены')
             },
-            error: () => {
+            error: (msg) => {
+                console.log(msg)
                 $('#dataError').text('Неизвестная ошибка. Попробуйте ещё раз')
             }
         })
@@ -57,7 +58,7 @@ function setButtonHandlers() {
             return false
         }
         $.ajax({
-            url: "user/password",
+            url: "usettings/0",
             method: "PATCH",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -66,7 +67,8 @@ function setButtonHandlers() {
             contentType: "application/json",
             data: JSON.stringify({
                 old_password: oldPass,
-                new_password: newPass
+                new_password: newPass,
+                edit_type: "password"
             }),
             error: () => {
                 $('#passwordError').text('Ошибка. Проверьте введённые данные')

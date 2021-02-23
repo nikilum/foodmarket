@@ -134,6 +134,7 @@
 <script type="text/javascript"
         src="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.23/b-1.6.5/datatables.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.15.1/basic/ckeditor.js"></script>
+<script src="{{ url('resources/js/get_balance.js') }}"></script>
 <script src="{{ url('resources/js/panels/admin.js') }}"></script>
 </body>
 </html>

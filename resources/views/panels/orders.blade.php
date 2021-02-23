@@ -26,9 +26,11 @@
     </div>
     <div class="block-body">
         <div class="datatable">
-            <table id="ordersHistory" class="table table-striped table-bordered centered-table">
+            <table id="orders" class="table table-striped table-bordered centered-table">
                 <thead>
                 <tr>
+                    <th></th>
+                    <th></th>
                     <th>id</th>
                     <th>Дата</th>
                     <th>Статус</th>
@@ -44,6 +46,69 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="detailModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel">Информация о заказе</h5>
+            </div>
+            <div class="modal-body">
+                <div class="total-price" id="totalPrice"></div>
+                <label for="userName" class="modal-label">Товары</label>
+                <div class="bg-dark details-block product-details" id="productList">
+                </div>
+
+                <label for="userAddress" class="modal-label">Доп. информация о заказе</label>
+                <div class="bg-dark details-block addition-text" id="additionalText">
+
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <small class="error-text" id="detailsModalError"></small>
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="hideModal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="orderModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel">Изменить заказ</h5>
+            </div>
+            <div class="modal-body">
+                <label for="userName" class="modal-label">Ваше имя</label>
+                <input type="text" class="form-control green-input-border"
+                       id="userName">
+
+                <label for="userAddress" class="modal-label">Ваш адрес</label>
+                <input type="text" class="form-control green-input-border"
+                       id="userAddress">
+
+                <label for="userPhone" class="modal-label">Ваш номер телефона</label>
+                <input type="text" class="form-control green-input-border"
+                       id="userPhone">
+                <label for="userAdditional" class="modal-label">Дополнительная информация к заказу</label>
+                <textarea class="form-control green-input-border"
+                          id="userAdditional"></textarea>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <small class="error-text" id="editModalError"></small>
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="hideModal">Закрыть</button>
+                    <button type="button" class="btn btn-primary submit-button" id="submitButton">Обновить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="//kit.fontawesome.com/22adceb6fe.js" crossorigin="anonymous"></script>
 <script
@@ -62,5 +127,8 @@
 <script type="text/javascript"
         src="//cdn.datatables.net/v/bs4-4.1.1/dt-1.10.23/b-1.6.5/datatables.min.js"></script>
 <script src="//cdn.ckeditor.com/4.15.1/basic/ckeditor.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+<script src="{{ url('resources/js/get_balance.js') }}"></script>
+<script src="{{ url('resources/js/panels/order.js') }}"></script>
 </body>
 </html>

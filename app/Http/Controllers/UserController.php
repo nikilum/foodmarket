@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\MailVerify;
+use App\Models\BalanceHistory;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Verify;
@@ -26,7 +27,8 @@ class UserController extends Controller
             return false;
         if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL))
             return false;
-        if (strlen($userPassword) < 8 || strlen($userPassword) > 32)
+        if (strlen(str_replace(" ", '', $userPassword)) < 8 ||
+            strlen(str_replace(" ", '', $userPassword)) > 32)
             return false;
         $duplicates = User::where('user_email', $userEmail)->count();
         if ($duplicates !== 0) {
@@ -71,11 +73,6 @@ class UserController extends Controller
 
     public function verifyMail(Request $request)
     {
-        /*
-         * Метод используется на двух страницах - /register и /verify
-         * Для /register $user_email передаётся ajax запросом
-         * Для /verify $user_email передаётся из сессии
-         **/
 
         // Принятие обязательных данных - кода верификации и почты
         $inputtedCode = $request->input('verify_code');
@@ -85,39 +82,32 @@ class UserController extends Controller
             $userEmail = Session::get('user_email');
 
         // Получение строки кода и строки пользователя из БД
-        $currentUser = User::where('user_email', $userEmail)->first();
-        $currentVerify = Verify::where('user_id', $currentUser->value('user_id'))->first();
-
-        // Проверка на случай двойного нажатия на кнопку подтверждения почты
-
+        $user = User::where('user_email', $userEmail)->first();
+        $verify = Verify::where('user_id', $user->user_id)->first();
 
         // Проверка совпадения кодов
-        if ($currentVerify->value('verify_code') !== $inputtedCode) {
+        if ($verify->verify_code !== $inputtedCode) {
             echo json_encode(['status' => 'verify failed']);
             return false;
         }
 
         // Сохранение времени верификации пользователя
-        $currentUser->user_email_verified_at = now();
-        $currentUser->save();
+        $user->user_email_verified_at = now();
+        $user->save();
 
         // Удаление кода верификации из БД за его ненадобностью
-        $currentVerify->delete();
+        $verify->delete();
 
         // Добавление почты пользователя в сессию, если он ещё не был зарегистрирован
         if (!Session::has('user_email'))
             Session::put('user_email', $userEmail);
         Session::put('verified', true);
-        echo json_encode(['status' => 'ok']);
+
+        Controller::endFunc();
     }
 
     public function repeatVerifyCode(Request $request)
     {
-        /*
-         * Метод используется на двух страницах - /register и /verify
-         * Для .../register $user_email передаётся ajax запросом
-         * Для .../verify $user_email передаётся из сессии
-         **/
         if ($request->has('user_email'))
             $userEmail = $request->input('user_email');
         else
@@ -135,7 +125,8 @@ class UserController extends Controller
 
         // Отправка письма с подтверждением
         Mail::to($userEmail)->send(new MailVerify(['verify_code' => $verifyCode]));
-        echo json_encode(["status" => 'ok']);
+
+        Controller::endFunc();
     }
 
     public function login(Request $request)
@@ -150,16 +141,16 @@ class UserController extends Controller
         $userPassword = $currentUser->value('user_password');
         $saltedPassword = $inputtedPassword . $userSalt;
         // Хеширование пароля
-        $hashedPassword = hash('sha512',$saltedPassword);
+        $hashedPassword = hash('sha512', $saltedPassword);
         // Проверка пароля
 
         if ($userPassword !== $hashedPassword)
             return false;
 
         Session::put('user_email', $userEmail);
-        if($currentUser->value('user_email_verified_at') !== null)
+        if ($currentUser->value('user_email_verified_at') !== null)
             Session::put('verified', true);
 
-        echo json_encode(['status' => 'ok']);
+        Controller::endFunc();
     }
 }

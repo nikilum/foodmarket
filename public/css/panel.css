@@ -103,6 +103,7 @@
 
 .datatable {
   width: 80%;
+  margin: 0 auto;
 }
 
 .centered-table {
@@ -244,5 +245,89 @@
 
 .blocked-href:active {
   color: #f19b1a !important;
+}
+
+.details-block {
+  background: #f6f5f1;
+  border-radius: 0.25rem;
+  border: 1px solid lightgray;
+  overflow-y: scroll;
+  padding: 20px;
+  height: 10rem;
+}
+
+.addition-text {
+  word-break: break-word;
+}
+
+.product-name-manager {
+  width: 20.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+}
+
+.product-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-details hr:last-child {
+  display: none;
+}
+
+.total-price {
+  position: absolute;
+  right: 1rem;
+  top: 1.5rem;
+  background: #f6f5f1;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid lightgray;
+}
+
+.order-status-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-status-btn {
+  margin-top: 3px;
+  margin-left: 10px;
+  color: #6ba64c;
+  cursor: pointer;
+}
+
+.order-status-btn:hover {
+  color: #78b359;
+}
+
+.order-status-btn:active {
+  color: #609544;
+}
+
+.select-status {
+  -webkit-appearance: inherit;
+     -moz-appearance: inherit;
+          appearance: inherit;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+}
+
+.order-status-text {
+  color: #6ba64c;
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+.order-status-text:hover {
+  color: #78b359;
+}
+
+.order-status-text:active {
+  color: #609544;
 }
 

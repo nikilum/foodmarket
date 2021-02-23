@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GlobalController;
+use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\PanelController;
-use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\NSettingsController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
-use \Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,72 +22,57 @@ use \Illuminate\Support\Facades\Session;
 |
 */
 
-Route::get('/', [Controller::class, 'index']); // Загрузка основной страницы
-Route::post('/products', [Controller::class, 'loadProducts']); // Подгрузка продуктов для основной страницы
-Route::post('/cart/add', [CartController::class, 'addToCart']); // Добавление продукта в корзину
-Route::post('/cart', [CartController::class, 'loadCart']); // Загрузка корзины
-Route::patch('/cart', [CartController::class, 'updateCart']); // Обновление кол-ва товара в корзине
-Route::delete('/cart', [CartController::class, 'deleteCartItem']); // Удаление товара
+// Публичные функции
 
-Route::get('/orders', [Controller::class, 'ordering']); // Загрузка панели истории заказов
-Route::get('/settings', [SettingsController::class, 'settings']); // Загрузка панели настроек
-Route::post('/user', [SettingsController::class, 'loadUserData']); // Загрузка данных к панели настроек
-Route::patch('/user', [SettingsController::class, 'updateUserData']); // Обновление данных о пользователе
-Route::patch('/user/password', [SettingsController::class, 'updatePassword']); // Обновление данных о пароле
+Route::get('/', [PageController::class, 'index']); // Загрузка основной страницы
+Route::get('/products', [PageController::class, 'loadProducts']); // Подгрузка продуктов для основной страницы
+Route::get('/products/{id}', [PageController::class, 'productPage'])->whereNumber('id');
 
-// Регистрация
+Route::middleware('authorized')->group(function () {
 
-Route::get('/register', function () {
-    return view('auth.register');
+    Route::middleware('verified')->group(function () {
+
+        // Основная страница +
+        Route::resource('cart_products', CartController::class)->except(['create', 'edit', 'show']);
+
+        Route::get('/orders', [PageController::class, 'order']); // Загрузка панели истории заказов
+        Route::resource('uorders', OrderController::class)->except(['create']);
+        Route::middleware('manager')->group(function () { // менеджер
+            Route::get('/manager', [PageController::class, 'manager']);
+            Route::resource('morders', ManagerController::class)->only(['index', 'show', 'update']);
+        });
+        Route::middleware('admin')->group(function () { // админ
+            Route::get('/admin', [PageController::class, 'admin']);
+            Route::resource('aproducts', AdminController::class)->except(['create', 'show', 'update']);
+        });
+        Route::middleware('global')->group(function () { // глобальный админ
+            Route::get('/global', [PageController::class, 'global']);
+            Route::resource('gusers', GlobalController::class)->except(['create', 'store', 'show']);
+        });
+        // Баланс
+        Route::resource('balances', BalanceController::class)->only(['index', 'update', 'show']);
+    });
+    // Панель настроек
+    Route::get('/settings', [PageController::class, 'settings']); // Загрузка панели настроек
+    Route::resource('usettings', NSettingsController::class)->only(['index', 'update']);
+
+    // Верификация
+    Route::middleware('notVerified')->group(function () {
+        Route::get('/verify', [PageController::class, 'verify'])->name('verify');
+        Route::post('/verify', [UserController::class, 'verifyMail']);
+        Route::patch('/verify', [UserController::class, 'repeatVerifyCode'])->middleware('throttle:5,60');
+    });
+
 });
 
-Route::post('/register', [UserController::class, 'register']);
+Route::middleware('notLoggedIn')->group(function () {
 
-// Логин
+    // Регистрация
+    Route::get('/register', [PageController::class, 'register']);
+    Route::post('/register', [UserController::class, 'register']);
 
-Route::get('/login', function () {
-    return view('auth.login');
+    // Логин
+    Route::get('/login', [PageController::class, 'login']);
+    Route::post('/login', [UserController::class, 'login']);
 });
-
-Route::post('/login', [UserController::class, 'login']);
-
-// Верификация
-
-Route::get('/verify', function () {
-    return view('auth.verify');
-});
-
-Route::post('/verify', [UserController::class, 'verifyMail']);
-
-Route::get('/logout', function (){
-    Session::flush();
-    return redirect('/');
-});
-
-// админка
-
-Route::get('/manager', [Controller::class, 'manager']);
-
-Route::post('/manager/table', [PanelController::class, 'loadManagerTable']);
-
-Route::get('/admin', [Controller::class, 'admin']);
-Route::post('/admin', [PanelController::class, 'createProduct']);
-Route::post('/admin/update', [PanelController::class, 'updateProduct']);
-Route::delete('/admin', [PanelController::class, 'deleteProduct']);
-
-Route::post('/admin/table', [PanelController::class, 'loadAdminTable']);
-
-Route::get('/global', [Controller::class, 'global']);
-Route::patch('/global', [PanelController::class, 'updateUser']);
-Route::delete('/global', [PanelController::class, 'deleteUser']);
-
-Route::post('/global/table', [PanelController::class, 'loadGlobalTable']);
-
-// Получить данные о продукте
-
-Route::get('/product/{id}', [Controller::class, 'loadProductPage'])->whereNumber('id');
-Route::post('/product/{id}', [Controller::class, 'getProductById'])->whereNumber('id');
-
-Route::get('/user/{id}', [Controller::class, 'loadUserPage'])->whereNumber('id'); //TODO удалить
-Route::post('/user/{id}', [Controller::class, 'getUserById'])->whereNumber('id');
-Route::post('/user', [Controller::class, 'getUserData']);
+Route::get('/logout', [PageController::class, 'logout']);

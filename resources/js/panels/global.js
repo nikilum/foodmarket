@@ -1,9 +1,10 @@
 $(document).ready(function () {
+    getBalance()
     updateTable()
 
     $('#submitButton').on('click', function () {
         $.ajax({
-            url: "global",
+            url: "gusers/" + clicked_user_id,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -11,7 +12,6 @@ $(document).ready(function () {
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify({
-                user_id: clicked_user_id,
                 user_email: $('#userEmail').val(),
                 user_group: $('#userGroup option:selected').val(),
                 user_address: $('#userAddress').val(),
@@ -37,11 +37,8 @@ function updateTable() {
             url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/Russian.json'
         },
         ajax: {
-            url: "global/table",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            method: "POST",
+            url: "gusers",
+            method: "GET",
             dataType: "json",
             contentType: "application/json",
             // Обработка json файла и создание соответствующей таблицы
@@ -109,11 +106,8 @@ function setTableHandlers() {
 
         // Запрос данных о товаре с сервера
         $.ajax({
-            url: "user/" + $(this).attr('data-id'),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            method: "POST",
+            url: "gusers/" + $(this).attr('data-id') + '/edit',
+            method: "GET",
             dataType: "json",
             contentType: "application/json",
             success: (msg) => {
@@ -131,14 +125,13 @@ function setTableHandlers() {
 
     $('.row-delete-href').on('click', function () {
         $.ajax({
-            url: "global",
+            url: "gusers/" + $(this).attr('data-id'),
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             method: "DELETE",
             dataType: "json",
             contentType: "application/json",
-            data: JSON.stringify({'user_id': $(this).attr('data-id')}),
             success: () => {
                 $('#admins').DataTable().clear().destroy()
                 updateTable()

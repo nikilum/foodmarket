@@ -9,7 +9,7 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
     <link rel="preconnect" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
@@ -21,7 +21,7 @@
         <span class="fas fa-arrow-up"></span>
     </div>
 </a>
-@if($user_email !== 'guest')
+@if($user_email !== 'guest' && $user_verify === true)
     <div class="foreground"></div>
     <div class="shopping-cart-open-btn bottom-button" id="openCartBtn">
         <span class="fas fa-shopping-cart"></span>
@@ -85,46 +85,49 @@
     </div>
 </div>
 
-<div class="modal fade" id="orderModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-     aria-labelledby="orderModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="orderModalLabel">Оформление заказа</h5>
-            </div>
-            <div class="modal-body">
+@if($user_email !== 'guest' && $user_verify === true)
+    <div class="modal fade" id="orderModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+         aria-labelledby="orderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderModalLabel">Оформление заказа</h5>
+                </div>
+                <div class="modal-body">
+                    <label for="userName" class="modal-label">Ваше имя</label>
+                    <input type="text" class="form-control green-input-border"
+                           id="userName">
 
-                <label for="userName" class="modal-label">Ваше имя</label>
-                <input type="text" class="form-control green-input-border"
-                       id="userName">
+                    <label for="userAddress" class="modal-label">Ваш адрес</label>
+                    <input type="text" class="form-control green-input-border"
+                           id="userAddress">
 
-                <label for="userAddress" class="modal-label">Ваш адрес</label>
-                <input type="text" class="form-control green-input-border"
-                       id="userAddress">
-
-                <label for="userPhone" class="modal-label">Ваш номер телефона</label>
-                <input type="text" class="form-control green-input-border"
-                       id="userPhone">
-            </div>
-            <div class="modal-footer justify-content-between">
-                <small class="error-text" id="modalError"></small>
-                <div class="modal-buttons">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="hideModal">Отмена
-                    </button>
-                    <button type="button" class="btn btn-primary submit-button" id="submitButton">Оформить</button>
+                    <label for="userPhone" class="modal-label">Ваш номер телефона</label>
+                    <input type="text" class="form-control green-input-border"
+                           id="userPhone">
+                    <label for="userAdditional" class="modal-label">Дополнительная информация к заказу</label>
+                    <textarea class="form-control green-input-border"
+                              id="userAdditional"></textarea>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <small class="error-text" id="modalError"></small>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="hideModal">Отмена
+                        </button>
+                        <button type="button" class="btn btn-primary submit-button" id="submitButton">Оформить</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+@endif
 
 <!-- Scripts -->
 
 <script src="//kit.fontawesome.com/22adceb6fe.js" crossorigin="anonymous"></script>
-<script
-    src="//code.jquery.com/jquery-3.5.1.min.js"
-    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-    crossorigin="anonymous"></script>
+<script src="//code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
@@ -132,6 +135,9 @@
         integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
         crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+@if($user_email !== 'guest' && $user_verify === true)
+    <script src="{{ url('resources/js/get_balance.js') }}"></script>
+@endif
 <script src="{{ url('resources/js/homepage.js') }}"></script>
 </body>
 </html>

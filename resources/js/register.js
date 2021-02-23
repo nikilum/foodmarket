@@ -2,9 +2,11 @@ $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-});
+})
 
 $(document).ready(function () {
+    isTimerActive = false
+    setConstantHandlers()
     $('#inputPhone').mask('+9(999)999-99-99') //Установка маски для ввода телефона
     $('#inputPhone').on('click', function () { //Установка каретки в начало маски ввода номера
         $('#inputPhone').focus()
@@ -15,7 +17,7 @@ $(document).ready(function () {
         //====================== Получение входящих данных ======================
 
         let email = $('#inputEmail').val()
-        let password = $('#inputPassword').val()
+        let password = $('#inputPassword').val().replace(' ', '')
         let nameSurname = $('#inputName').val() + ' ' + $('#inputSurname').val()
         let address = $('#inputAddress').val()
         let phone = $('#inputPhone').val()
@@ -122,7 +124,7 @@ $(document).ready(function () {
             contentType: 'application/json',
             data: JSON.stringify(verify_info),
             success: (msg) => {
-                if (msg === 'verify failed') {
+                if (msg.status === 'verify failed') {
                     $('#codeError').text('Введён неверный код')
                     return false
                 }
@@ -142,17 +144,61 @@ function createVerifyForm() {
 
     $('.progress-bar').css('width', '50%')
     $('.register-form').animate({opacity: '0'});
-    $('.bottom-ref').text('Не пришёл код? Вы можете отправить письмо ещё раз').attr('href', '#')
+    $('.bottom-ref').text('Не пришёл код? Вы можете отправить письмо ещё раз').removeAttr('href')
     $('.register-container').animate({height: '165px', width: '450px'})
     setTimeout(() => {
         $('.register-form')
             .html('<div class="form-group">\n' +
                 '<label for="inputCode">Код подтвеждения был отправлен вам на почту</label>' +
                 '<input id="inputCode" type="text"' +
-                'class="form-control" placeholder="A1B2-C3D4-E5F6-G7H8" aria-describedby="codeError">' +
+                'class="form-control" placeholder="ieglmxexkmshvoy8" aria-describedby="codeError">' +
                 '</div>' +
                 '<button class="btn btn-success" id="mailConfirmButton">Подтвердить</button>' +
                 '<small id="codeError" class="error-message unexpected-error-box"></small>')
             .animate({opacity: '1'})
     }, 450)
+    $('.bottom-ref').on('click', function () {
+        if (isTimerActive === true)
+            return false
+        $.ajax({
+            url: "verify",
+            method: "PATCH",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                user_email: user_info.user_email
+            }),
+            success: () => {
+                setTimer()
+            },
+            error: (msg) => {
+                if(msg.responseJSON.message === "Too Many Attempts.")
+                    $('.bottom-ref').text('Количество попыток истекло. Попробуйте ещё раз через час.')
+            }
+        })
+    })
 }
+
+function setConstantHandlers() {
+    $('#inputPassword').on('input', function () {
+        $("#inputPassword").val($("#inputPassword").val().replace(' ', ''))
+    })
+}
+
+function setTimer() {
+    isTimerActive = true
+    let time = 61
+    let timer = setInterval(function () {
+        time -= 1
+
+        $('.bottom-ref').html('Код был отправлен. Вы можете отправить его ещё раз через <span>' +
+            time + '</span> секунд')
+
+        if (time === 0) {
+            isTimerActive = false
+            $('.bottom-ref').text('Не пришёл код? Вы можете отправить письмо ещё раз')
+            clearInterval(timer)
+        }
+    }, 1000)
+}
+
